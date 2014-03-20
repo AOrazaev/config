@@ -8,7 +8,7 @@ _BASHRC=${HOME}/.bashrc
 _BASH_PROFILE=${HOME}/.profile
 
 
-. common.sh
+. logging.sh
 
 function main() {
     rm -rf ${BACKUP_DIR}
