@@ -73,8 +73,13 @@ function configure_vim() {
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle || \
         warn "Vundle already installed...\n"
 
-    info "Installing bundle pluggin..."
+    info "Installing bundle pluggins..."
     vim -c 'BundleInstall' -c 'q|q'
+
+    if [ -e "${BACKUP_DIR}/.vim/view" ]; then
+        info "Restoring .vim/view"
+        cp -r ${BACKUP_DIR}/.vim/view ${_VIM}/
+    fi
 }
 
 
