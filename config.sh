@@ -11,6 +11,7 @@ _BASH_PROFILE=${HOME}/.profile
 . common.sh
 
 function main() {
+    rm -rf ${BACKUP_DIR}
     mkdir -p ${BACKUP_DIR}
     info "You can find your current configuration backup in ${BACKUP_DIR}"
 
@@ -21,7 +22,10 @@ function main() {
 
 
 function safe_cp {
-    rm -rf $2
+    if [ -e "$2" ]; then
+        debug "Backup ${2}..."
+        backup -q -m $2
+    fi
     cp -r $1 $2 || {
         error "While execing \`cp -r $@\`"
         exit 1
@@ -30,11 +34,20 @@ function safe_cp {
 
 
 function backup() {
-    info "Backup current configurations..."
+    _cp='cp -r'
+    _quiet=yes
+    while [ "$1" == '-q' ] || [ "$1" == '-m' ]; do
+        case $1 in
+            '-q') _quiet='';;
+            '-m') _cp='mv -f'
+        esac
+        shift
+    done
+
+    [ ! "${_quiet}" ] || info "Backup current configurations..."
     for f in $@; do
         if [ -e $f ]; then
-            debug "Backup ${f}..."
-            cp -r $f ${BACKUP_DIR}/
+            ${_cp} $f ${BACKUP_DIR}/
         fi
     done
 }
@@ -42,8 +55,6 @@ function backup() {
 
 function configure_bash() {
     H1 "Configuring BASH"
-
-    backup ${_BASHRC} ${_BASH_PROFILE}
 
     info "Copyin configs..."
     safe_cp src/_profile ${_BASH_PROFILE}
@@ -53,8 +64,6 @@ function configure_bash() {
 
 function configure_vim() {
     H1 "Configuring VIM"
-
-    backup ${_VIM} ${_VIMRC}
 
     info "Copying configs..."
     safe_cp src/_vim ${_VIM}
@@ -71,8 +80,6 @@ function configure_vim() {
 
 function configure_python() {
     H1 "Configuring Python"
-
-    backup ${_PYTHONSTARTUP}
 
     info "Copying configs..."
     safe_cp src/_pythonstartup ${_PYTHONSTARTUP}
