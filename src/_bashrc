@@ -104,4 +104,8 @@ fi
 export TERM=xterm-256color
 export EDITOR=vim
 export PYTHONSTARTUP=~/.pythonstartup
-export PATH=${PATH}:${HOME}/.local/bin:${HOME}/.usr_local/bin
+export PATH=${HOME}/.local/bin:${HOME}/.usr_local/bin/:${HOME}/.bin:${PATH}
+
+if [ -f ~/.local_environment ]; then
+    . ~/.local_environment
+fi
