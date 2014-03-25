@@ -15,7 +15,7 @@ function main() {
 }
 
 
-function safe_cp {
+function safe_cp() {
     if [ -e "$2" ]; then
         debug "Backup ${2}..."
         backup -q -m $2
@@ -24,6 +24,26 @@ function safe_cp {
         error "While execing \`cp -r $@\`"
         exit 1
     }
+}
+
+function need_update() {
+    if [ ! -e ${1} ] || [ ! -e ${2} ]; then
+        return 0
+    fi
+
+    if ! diff ${1} ${2} > /dev/null; then
+        return 0
+    fi
+
+    return 1
+}
+
+function safe_cp_if_need() {
+    if need_update ${1} ${2}; then
+        safe_cp ${1} ${2}
+    else
+        debug "Do not need update ${1} -> ${2}"
+    fi
 }
 
 
@@ -51,13 +71,17 @@ function configure_bash() {
     H1 "Configuring BASH"
 
     info "Copyin configs..."
-    safe_cp src/_profile ${_BASH_PROFILE}
-    safe_cp src/_bashrc ${_BASHRC}
+    safe_cp_if_need src/_profile ${_BASH_PROFILE}
+    safe_cp_if_need src/_bashrc ${_BASHRC}
 }
 
 
 function configure_vim() {
     H1 "Configuring VIM"
+    if ! need_update src/_vimrc ${_VIMRC}; then
+        debug "VIM already configured."
+        return 0
+    fi
 
     info "Copying configs..."
     safe_cp src/_vim ${_VIM}
@@ -81,7 +105,7 @@ function configure_python() {
     H1 "Configuring Python"
 
     info "Copying configs..."
-    safe_cp src/_pythonstartup ${_PYTHONSTARTUP}
+    safe_cp_if_need src/_pythonstartup ${_PYTHONSTARTUP}
 }
 
 main
