@@ -13,7 +13,11 @@ function get_vim_srcs() {
     H1 "Downloading vim sources"
     mkdir -p ${USR_LOCAL}/srcs
     pushd ${USR_LOCAL}/srcs
-    [ -e vim ] || hg clone https://vim.googlecode.com/hg/ vim
+    [ -e vim ] || hg clone https://vim.googlecode.com/hg/ vim || \
+        {
+            error "You shuld install mercurial on host for fetch vim sources."
+            exit 1;
+        }
     cd vim
     hg pull
     hg update
