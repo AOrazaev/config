@@ -49,20 +49,15 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\e[104m TIME: \A \e[100m \[\033[01;32m\]\u@\h\e[100m:\e[1m\e[37m\e[100m\w $(__git_ps1 "\e[0m\e[104m\e[39m git on %s ")\[\033[00m\]\n\$ '
+    PS1='${debian_chroot:+($debian_chroot)}'
+    PS1=${PS1}'\e[48;5;237m\e[38;5;248m \A '
+    PS1=${PS1}'\e[48;5;238m \e[92m\u@\h\e[39m:'
+    PS1=${PS1}'\e[0m\e[48;5;238m\e[37m\w '
+    PS1=${PS1}'$(__git_ps1 "\e[0m\e[48;5;237m\e[38;5;248m git on %s ")\[\033[00m\]\n\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}[\A]\u@\h:\w\n\$(__git_ps1 "(%s)")\$ '
 fi
 unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#xterm*|rxvt*)
-#    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-#    ;;
-#*)
-#    ;;
-#esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
