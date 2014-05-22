@@ -112,3 +112,42 @@ export PATH=${HOME}/.local/bin:${HOME}/.usr_local/bin/:${HOME}/.bin:${HOME}/.usr
 if [ -f ~/.local_environment ]; then
     . ~/.local_environment
 fi
+
+
+# ==========
+# Funcitions
+# ==========
+
+function ssa() {
+    if [[ $# -ne 2 ]]; then
+        echo "Usage: ssa <host> <tmux session to attach>" 1>&2
+        echo "ssa (ssh + tmux attach): connect by ssh to given host and attach to given tmux session" 1>&2
+        return 1
+    fi
+
+    HOST=$1
+    SESSION=$2
+    ssh -t $HOST tmux attach -t $SESSION
+}
+
+function ssls() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: ssls <host>" 1>&2
+        echo "ssls (ssh + tmux ls): list tmux sessions on given remote host" 1>&2
+        return 1
+    fi
+
+    HOST=$1
+    ssh -t $HOST tmux list-sessions
+}
+
+function sst() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: sst <host>" 1>&2
+        echo "sst (ssh + tmux): connect by ssh to given host and create tmux session" 1>&2
+        return 1
+    fi
+
+    HOST=$1
+    ssh -t $HOST tmux
+}
