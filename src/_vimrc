@@ -90,6 +90,9 @@ let g:airline_right_sep = ''
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'understated'
 
+" Syntax:
+Bundle 'wting/rust.vim'
+
 " REPLs:
 " Bundle 'khorser/vim-repl' -- it sucks
 " Bundle 'jpalardy/vim-slime.git' -- it sucks
