@@ -83,7 +83,8 @@ Bundle 'vim-scripts/taglist.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-abolish'
 
-Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 set laststatus=2
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
