@@ -65,26 +65,26 @@ au FileType cpp set cindent
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 
 " let Vundle manage Vundle
 " required!
 "
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
-" My Bundles here:
+" My Plugins here:
 "
 " original repos on github:
 
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-abolish'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-abolish'
 
-Bundle 'vim-airline/vim-airline'
-Bundle 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 set laststatus=2
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -92,23 +92,25 @@ let g:airline_powerline_fonts = 0
 let g:airline_theme = 'understated'
 
 " Syntax:
-Bundle 'wting/rust.vim'
+Plugin 'wting/rust.vim'
 
 " REPLs:
-" Bundle 'khorser/vim-repl' -- it sucks
-" Bundle 'jpalardy/vim-slime.git' -- it sucks
-Bundle 'pthrasher/conqueterm-vim'
+" Plugin 'khorser/vim-repl' -- it sucks
+" Plugin 'jpalardy/vim-slime.git' -- it sucks
+Plugin 'pthrasher/conqueterm-vim'
 
 " need if_lua
-" Bundle 'Shougo/neocomplete.vim'
+" Plugin 'Shougo/neocomplete.vim'
 
 " Colors:
-Bundle 'junegunn/seoul256.vim'
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'junegunn/seoul256.vim'
+Plugin 'altercation/vim-colors-solarized'
 let g:solarized_termcolors=256
-" Bundle 'daylerees/colour-schemes', { 'rtp': 'vim/' }
-Bundle "vim-scripts/CSApprox"
+" Plugin 'daylerees/colour-schemes', { 'rtp': 'vim/' }
+Plugin 'vim-scripts/CSApprox'
 
+call vundle#end()
+filetype plugin indent on
 
 " Guicolors
 " IMPORTANT: Uncomment one of the following lines to force
