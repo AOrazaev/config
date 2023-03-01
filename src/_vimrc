@@ -94,6 +94,9 @@ let g:airline_theme = 'understated'
 " Syntax:
 Plugin 'wting/rust.vim'
 
+Plugin 'vim-python/python-syntax'
+let g:python_highlight_all = 1
+
 " REPLs:
 " Plugin 'khorser/vim-repl' -- it sucks
 " Plugin 'jpalardy/vim-slime.git' -- it sucks
